@@ -1,24 +1,40 @@
-# vue_base
+# axios demo
 
-## Project setup
+## 简介
+使用axios跨域发请求，此方法通过vue模拟发起，不是直接通过浏览器发起
+
+## 步骤
+1. 添加axios
 ```
-npm install
+npm install axios --save
+```
+2. 跨域配置（创建或者修改vue.config.js）
+```
+module.exports = {
+  // see https://cli.vuejs.org/config/#devserver-proxy
+  devServer: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:9001',
+        changeOrigin: true, // 允许跨域
+        ws: true
+      }
+    }
+  }
+};
 ```
 
-### Compiles and hot-reloads for development
+## 其他说明
+- GET方法
 ```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
+axios.post('/api/data', data)
 ```
 
-### Lints and fixes files
+- POST方法
 ```
-npm run lint
+axios.get('/api/data', {
+params: data
+})
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+
