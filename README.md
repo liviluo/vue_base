@@ -1,24 +1,24 @@
 # vue_base
 
-## Project setup
+## 操作
+- 安装依赖
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+-  运行
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
+- 打包
 ```
 npm run build
 ```
 
-### Lints and fixes files
+### 其他
+如果部署到带有前缀的路径下，打包时需要修改`vue.config.js`的`publicPath`。否则无法找到文件路径
 ```
-npm run lint
+publicPath: './'
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
