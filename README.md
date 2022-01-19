@@ -1,31 +1,22 @@
 # axios demo
 
 ## 简介
-使用axios跨域发请求。浏览器发请求到前端服务器，属于同一个域(所以浏览器发请求不存在跨域问题)，后端请求由前端服务器转发。在部署到nginx的时候需要配置转发后端的地址，把前端的api请求转发到后端
+使用axios直接在浏览器发起跨域的请求，baseURL直接设置后端地址，不需要在vue.config.js设置proxy。跨域请求操作直接由浏览器发起，不经过前端服务器转发。只需要在后端服务器配置跨域即可，参考：[springboot后端跨域配置](https://gitee.com/liviluo/base_tools/tree/cros/)
 
 ## 步骤
 1. 添加axios
 ```
 npm install axios --save
 ```
-2. 跨域配置（创建或者修改vue.config.js）
+2. baseURL直接设置后端地址
 ```
-module.exports = {
-  // see https://cli.vuejs.org/config/#devserver-proxy
-  devServer: {
-    proxy: {
-      '/api': {
-        target: 'http://localhost:9001',
-        changeOrigin: true, // 允许跨域
-        ws: true
-      }
-    }
-  }
-};
-```
+import axios from 'axios';
 
-## 部署配置（nginx）
-后续更新...
+export default axios.create({
+  timeout: 5000,
+  baseURL: 'http://localhost:9001/'
+});
+```
 
 ## 其他说明
 - GET方法
