@@ -1,60 +1,86 @@
 # router demo
 
 ## 简介
-使用vue router进行页面跳转
+嵌套路由
 
-## 步骤
-1. 添加axios
+## 说明
+- 一级路由
 ```
-npm install vue-router@4
-```
-2. 配置/src/router/index.js
-```
-import { createRouter, createWebHistory } from "vue-router"
-const routers = [
   { path: "/", redirect: "/home" },
   {
     path: "/home",
     component: () => import('@/views/home/index'),
   },
+```
+
+- 二级路由
+```
   {
-    path: '/page1',
-    component: () => import('@/views/page/page1')
-  },
-  {
-    path: '/page2',
-    component: () => import('@/views/page/page2')
+    path: '/page',
+    component: () => import('@/views/page/index'),
+    children: [
+      {
+        path: "/1",
+        component: () => import('@/views/page/children/page1'),
+      },
+      {
+        path: "/2",
+        component: () => import('@/views/page/children/page2'),
+      },
+      {
+        path: "/3",
+        component: () => import('@/views/page/children/page3'),
+      }
+    ]
   }
-]
-const router = createRouter({
-  history: createWebHistory(),
-  routes: routers
-})
-export default router;
 ```
 
-3. 在main.js中将 router 对象挂载到 vue 实例中
+- 三级路由
 ```
-import { createApp } from 'vue'
-import App from './App.vue'
-import router from '@/router';
-createApp(App)
-  .use(router)
-  .mount('#app')
+{
+    path: '/about',
+    component: () => import('@/views/about/index'),
+    children: [
+
+      {
+        path: '/user',
+        component: () => import('@/views/about/user/index'),
+        children: [
+          {
+            path: "/name",
+            component: () => import('@/views/about/user/children/name'),
+          },
+          {
+            path: "/age",
+            component: () => import('@/views/about/user/children/age'),
+          }
+        ]
+      },
+
+      {
+        path: '/admin',
+        component: () => import('@/views/about/admin/index'),
+        children: [
+          {
+            path: "/auth",
+            component: () => import('@/views/about/admin/children/auth'),
+          },
+          {
+            path: "/create",
+            component: () => import('@/views/about/admin/children/create'),
+          }
+        ]
+      }
+
+    ]
+  },
 ```
 
-4. router-view 用于渲染匹配到的组件
+## 跳转
 ```
+<router-link to="page/1">page 1</router-link>
+<router-link to="page/2">page 2</router-link>
+<router-link to="page/3">page 3</router-link>
 <router-view />
 ```
 
-## 跳转方法
-- router-link
-```
-<router-link to="/page1">page 1</router-link>
-```
-
-- this.$router.push()
-```
-this.$router.push('/page1')
-```
