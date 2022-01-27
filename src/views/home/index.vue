@@ -2,9 +2,8 @@
   <div class="hello">
     <img alt="Vue logo" src="@/assets/logo.png">
     <SayHello msg="router demo" />
-    <router-link to="/page1">page 1</router-link> |
-    <button @click="toPage(2)">page 2</button> |
-    <button @click="toPage(3)">page 3</button>
+    <router-link to="/about">about</router-link> |
+    <button @click="toPage('page')">page</button>
   </div>
 </template>
 
@@ -16,8 +15,8 @@ export default {
   },
 
   methods: {
-    toPage(num) {
-      this.$router.push('/page' + num)
+    toPage(path) {
+      this.$router.push(path)
     }
   }
 

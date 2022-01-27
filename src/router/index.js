@@ -6,18 +6,66 @@ const routers = [
     path: "/home",
     component: () => import('@/views/home/index'),
   },
+
+
   {
-    path: '/page1',
-    component: () => import('@/views/page/page1')
+    path: '/about',
+    component: () => import('@/views/about/index'),
+    children: [
+
+      {
+        path: '/user',
+        component: () => import('@/views/about/user/index'),
+        children: [
+          {
+            path: "/name",
+            component: () => import('@/views/about/user/children/name'),
+          },
+          {
+            path: "/age",
+            component: () => import('@/views/about/user/children/age'),
+          }
+        ]
+      },
+
+      {
+        path: '/admin',
+        component: () => import('@/views/about/admin/index'),
+        children: [
+          {
+            path: "/auth",
+            component: () => import('@/views/about/admin/children/auth'),
+          },
+          {
+            path: "/create",
+            component: () => import('@/views/about/admin/children/create'),
+          }
+        ]
+      }
+
+    ]
   },
+
+
   {
-    path: '/page2',
-    component: () => import('@/views/page/page2')
-  },
-  {
-    path: '/page3',
-    component: () => import('@/views/page/page3')
+    path: '/page',
+    component: () => import('@/views/page/index'),
+    children: [
+      {
+        path: "/1",
+        component: () => import('@/views/page/children/page1'),
+      },
+      {
+        path: "/2",
+        component: () => import('@/views/page/children/page2'),
+      },
+      {
+        path: "/3",
+        component: () => import('@/views/page/children/page3'),
+      }
+    ]
   }
+
 ]
 
 const router = createRouter({
