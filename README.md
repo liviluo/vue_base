@@ -1,26 +1,60 @@
-# vue_base
+# router demo
 
-## 操作
-- 安装依赖
+## 简介
+使用vue router进行页面跳转
+
+## 步骤
+1. 添加axios
 ```
-npm install
+npm install vue-router@4
+```
+2. 配置/src/router/index.js
+```
+import { createRouter, createWebHistory } from "vue-router"
+const routers = [
+  { path: "/", redirect: "/home" },
+  {
+    path: "/home",
+    component: () => import('@/views/home/index'),
+  },
+  {
+    path: '/page1',
+    component: () => import('@/views/page/page1')
+  },
+  {
+    path: '/page2',
+    component: () => import('@/views/page/page2')
+  }
+]
+const router = createRouter({
+  history: createWebHistory(),
+  routes: routers
+})
+export default router;
 ```
 
--  运行
+3. 在main.js中将 router 对象挂载到 vue 实例中
 ```
-npm run serve
-```
-
-- 打包
-```
-npm run build
-```
-
-### 其他
-如果部署到带有前缀的路径下，打包时需要修改`vue.config.js`的`publicPath`。否则无法找到文件路径
-```
-module.exports = {
-  publicPath: './',
-}
+import { createApp } from 'vue'
+import App from './App.vue'
+import router from '@/router';
+createApp(App)
+  .use(router)
+  .mount('#app')
 ```
 
+4. router-view 用于渲染匹配到的组件
+```
+<router-view />
+```
+
+## 跳转方法
+- router-link
+```
+<router-link to="/page1">page 1</router-link>
+```
+
+- this.$router.push()
+```
+this.$router.push('/page1')
+```
